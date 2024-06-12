@@ -103,6 +103,7 @@ jobs:
         cp $GITHUB_WORKSPACE/config/packages.txt $OPENWRT_PATH/packages.txt
         cd $OPENWRT_PATH
         cat default.config packages.txt >> .config
+        cat .config
 
     - name: Load Custom Script（加载自定义脚本）
       run: |
