@@ -1,8 +1,17 @@
-# sed -i 's/192.168.1.1/192.168.23.1/g' package/base-files/files/bin/config_generate
+# sed -i 's/192.168.1.1/192.168.22.1/g' package/base-files/files/bin/config_generate
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
-# 添加额外插件
-# git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/mypackage/luci-app-poweroff
-# git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/mypackage/luci-app-amlogic
+
+# 编译新版Sing-box和hysteria，尽量使用golang版本1.22以上版本 ，可以用以下命令
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+
+#安装最新openclash
+rm -rf feeds/luci/applications/luci-app-openclash
+git clone --depth=1 https://github.com/vernesong/OpenClash.git  package/openclash
+mv package/openclash/luci-app-openclash feeds/luci/applications/luci-app-openclash
+rm -rf package/openclash
+
+# 添加其它插件
 # git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/mypackage/luci-theme-argon
 # git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/mypackage/luci-app-argon-config
 
