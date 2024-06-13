@@ -13,7 +13,7 @@ env:
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
-  FIRMWARE_TAG: openwrt-mt7986-jdc-hanwckf
+  FIRMWARE_TAG: mt7986-jdc
   TZ: Asia/Shanghai
 
 jobs:
@@ -98,10 +98,10 @@ jobs:
   
     - name: Load Custom Configuration(加载自定义配置)
       run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/default.config
+        mv $CONFIG_FILE $OPENWRT_PATH/default.config
         cp $GITHUB_WORKSPACE/config/packages.txt $OPENWRT_PATH/packages.txt
         cd $OPENWRT_PATH
+        rm -rf .config
         cat default.config packages.txt >> .config
         cat .config
 
@@ -180,7 +180,7 @@ jobs:
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
           ### 📒 固件信息
-          - 💻 这是 ${{ env.FIRMWARE_TAG }} 平台使用的 OpenWrt 固件
+          - 💻 这是 ${{ env.FIRMWARE_TAG }} 使用的 OpenWrt 固件
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
           - 🌐 默认地址: 192.168.1.1
